@@ -1,14 +1,12 @@
-import express, { Application, Request, Response } from "express";
+import express, { Application } from "express";
+import router from "./routes/v1/index";
 
 const app: Application = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", async (_req: Request, res: Response) => {
-  return res.status(200).send({
-    message: "Hello World!",
-  });
-});
+// ルーティング
+app.use("/v1", router);
 
 export default app;
