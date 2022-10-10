@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 export default class loginService {
   async login(user: string, password: string) {
     console.log(user, password);
-    return [];
+    return { data: { user } };
   }
 
   makeToken(payload: { user: string }): string {
