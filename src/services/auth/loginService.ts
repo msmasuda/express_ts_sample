@@ -1,13 +1,21 @@
 import { Request } from 'express';
 import jwt from 'jsonwebtoken';
+import { PrismaClient } from '@prisma/client';
 
 export default class loginService {
-  async login(user: string, password: string) {
-    console.log(user, password);
-    return { data: { user } };
+  async login(email: string, password: string) {
+    console.log(email, password);
+    const prisma = new PrismaClient();
+    const user = prisma.user.findFirst({
+      where: {
+        email: email,
+        password: password,
+      },
+    });
+    return user;
   }
 
-  makeToken(payload: { user: string }): string {
+  makeToken(payload: { email: string }): string {
     const token = jwt.sign(payload, process.env['JWT_SECRET'] as string, {
       expiresIn: process.env['JWT_EXPIRE'],
     });
