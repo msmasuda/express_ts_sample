@@ -4,7 +4,6 @@ import { PrismaClient } from '@prisma/client';
 
 export default class loginService {
   async login(email: string, password: string) {
-    console.log(email, password);
     const prisma = new PrismaClient();
     const user = prisma.user.findFirst({
       where: {

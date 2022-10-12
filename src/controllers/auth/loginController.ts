@@ -3,6 +3,7 @@ import loginService from '../../services/auth/loginService';
 
 export const login = async (req: Request, res: Response): Promise<Response> => {
   try {
+    console.log(req.body);
     const email = req.body.email;
     const password = req.body.password;
     const service = new loginService();
