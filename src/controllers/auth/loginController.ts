@@ -11,7 +11,7 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
       const token = service.makeToken({ email: user.email });
       return res.send({ token: token });
     } else {
-      return res.status(401).end();
+      return res.status(401).send({ message: 'ログイン出来ません' });
     }
   } catch (e) {
     return res.status(500).send({ error: e });
