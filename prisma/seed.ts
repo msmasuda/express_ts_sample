@@ -1,19 +1,41 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Prisma } from '@prisma/client';
 const prisma = new PrismaClient();
+// モデル投入用のデータ定義
+const userData: Prisma.UserCreateInput[] = [
+  {
+    name: 'User1',
+    email: 'user1@example.com',
+    password: 'passord',
+  },
+  {
+    name: 'User2',
+    email: 'user2@example.com',
+    password: 'passord',
+  },
+  {
+    name: 'User3',
+    email: 'user3@example.com',
+    password: 'passord',
+  },
+];
+const transfer = async () => {
+  const users = [];
+  for (const u of userData) {
+    const user = prisma.user.create({
+      data: u,
+    });
+    users.push(user);
+  }
+  return await prisma.$transaction(users);
+};
+// 定義されたデータを実際のモデルへ登録する処理
+const main = async () => {
+  console.log(`Start seeding ...`);
 
-async function main() {
-  const user = await prisma.user.upsert({
-    where: { email: 'user1@example.com' },
-    update: {},
-    create: {
-      email: 'user1@example.com',
-      name: 'User1',
-      password: 'password',
-    },
-  });
+  await transfer();
 
-  console.log({ user });
-}
+  console.log(`Seeding finished.`);
+};
 
 main()
   .catch((e) => {
