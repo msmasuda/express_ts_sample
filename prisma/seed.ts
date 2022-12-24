@@ -5,17 +5,17 @@ const userData: Prisma.UserCreateInput[] = [
   {
     name: 'User1',
     email: 'user1@example.com',
-    password: 'passord',
+    password: 'password',
   },
   {
     name: 'User2',
     email: 'user2@example.com',
-    password: 'passord',
+    password: 'password',
   },
   {
     name: 'User3',
     email: 'user3@example.com',
-    password: 'passord',
+    password: 'password',
   },
 ];
 const transfer = async () => {
@@ -31,9 +31,7 @@ const transfer = async () => {
 // 定義されたデータを実際のモデルへ登録する処理
 const main = async () => {
   console.log(`Start seeding ...`);
-
   await transfer();
-
   console.log(`Seeding finished.`);
 };
 
